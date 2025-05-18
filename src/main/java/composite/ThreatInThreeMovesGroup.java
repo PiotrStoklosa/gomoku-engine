@@ -11,7 +11,7 @@ import java.util.Optional;
 public class ThreatInThreeMovesGroup extends PatternGroup{
 
     public ThreatInThreeMovesGroup() {
-        patterns.add(new CrossThreatPattern());
+        //patterns.add(new CrossThreatPattern());
         patterns.add(new LThreatPattern());
     }
 

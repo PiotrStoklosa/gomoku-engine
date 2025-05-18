@@ -76,6 +76,8 @@ public class OpenFieldsAtEndsRowPattern implements Pattern {
                         endPosition = p;
                     }
                     end++;
+                } else{
+                    break;
                 }
             } else {
                 break;

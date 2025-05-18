@@ -8,9 +8,9 @@ import fais.zti.oramus.gomoku.TheWinnerIsException;
 import fais.zti.oramus.gomoku.WrongBoardStateException;
 import visitor.BlockThreadInOneVisitor;
 import visitor.BlockThreadInTwoVisitor;
-import visitor.OpponentWinInOneVisitor;
 import visitor.BoardVisitor;
 import visitor.CheckStateVisitor;
+import visitor.OpponentWinInOneVisitor;
 import visitor.OpponentWinInTwoVisitor;
 import visitor.WinCheckInOneVisitor;
 import visitor.WinCheckInThreeVisitor;
@@ -26,7 +26,6 @@ public class Gomoku implements Game {
     boolean periodicBoundaryConditionsInUse = false;
     int size;
     private final List<BoardVisitor> boardVisitorList;
-
 
 
     @Override
@@ -58,27 +57,21 @@ public class Gomoku implements Game {
             if (move.isPresent()) {
                 return move.get();
             }
+            board.restore(m);
         }
-        return null;
+        throw new ResignException();
     }
 
     public Gomoku() {
 
-        // czy my mamy wygraną w 1
-        // czy możemy zablokować wygraną przeciwnika w 1
-        // czy możemy wygrać w 2 posunięciach
-        // czy przeciwnik może wygrać w 2 posunięciach
-        // czy możemy wygrać w 3 posunięciach
-        // template
-
         boardVisitorList = Arrays.asList(
                 new CheckStateVisitor(), // done
                 new WinCheckInOneVisitor(), // done
+                new OpponentWinInOneVisitor(),
                 new BlockThreadInOneVisitor(), // done
-                new OpponentWinInOneVisitor(), // done
                 new WinCheckInTwoVisitor(), // done
-                new BlockThreadInTwoVisitor(),
-                new OpponentWinInTwoVisitor(),
+                new OpponentWinInTwoVisitor(), // done
+                new BlockThreadInTwoVisitor(), // done
                 new WinCheckInThreeVisitor()
         );
 

@@ -1,20 +1,27 @@
 package visitor;
 
+import composite.NotBlockingWinInTwoMoveGroup;
 import factory.Board;
 import fais.zti.oramus.gomoku.Mark;
 import fais.zti.oramus.gomoku.ResignException;
 import fais.zti.oramus.gomoku.TheWinnerIsException;
 import fais.zti.oramus.gomoku.WrongBoardStateException;
-import template.TemplateVisitor;
 
-public class OpponentWinInTwoVisitor extends TemplateVisitor {
+public class OpponentWinInTwoVisitor extends CheckVisitorTemplate {
+    private Mark nextMark;
+
     @Override
-    protected void scanForPatterns(Board board) throws TheWinnerIsException, ResignException, WrongBoardStateException {
-
+    protected void scanForPatterns(Board board) throws TheWinnerIsException, WrongBoardStateException, ResignException {
+        pattern = new NotBlockingWinInTwoMoveGroup();
+        nextMove = board.getOpponentMove();
+        super.scanForPatterns(board);
+        if (move != null) {
+            throw new ResignException();
+        }
     }
 
     @Override
     protected Mark findMark() {
-        return null;
+        return nextMark;
     }
 }

@@ -9,7 +9,6 @@ import strategy.DirectionStrategy;
 import java.util.Optional;
 
 public interface Pattern {
-    Move foundMove = null;
     boolean matches(Board board, DirectionStrategy strategy, Position pos, Optional<Mark> mark);
     Move getFoundMove();
 }
