@@ -25,12 +25,13 @@ public class Gomoku implements Game {
 
     boolean periodicBoundaryConditionsInUse = false;
     int size;
+    Mark firstMark;
     private final List<BoardVisitor> boardVisitorList;
 
 
     @Override
     public void firstMark(Mark first) {
-
+        this.firstMark = first;
     }
 
     @Override
@@ -47,7 +48,7 @@ public class Gomoku implements Game {
     public Move nextMove(Set<Move> boardState, Mark nextMoveMark) throws ResignException, TheWinnerIsException, WrongBoardStateException {
 
 
-        Board board = BoardFactory.createBoard(periodicBoundaryConditionsInUse).create(boardState, size, nextMoveMark);
+        Board board = BoardFactory.createBoard(periodicBoundaryConditionsInUse).create(boardState, size, nextMoveMark, firstMark);
 
         for (BoardVisitor visitor : boardVisitorList) {
 
@@ -65,13 +66,13 @@ public class Gomoku implements Game {
     public Gomoku() {
 
         boardVisitorList = Arrays.asList(
-                new CheckStateVisitor(), // done
-                new WinCheckInOneVisitor(), // done
+                new CheckStateVisitor(),
+                new WinCheckInOneVisitor(),
                 new OpponentWinInOneVisitor(),
-                new BlockThreadInOneVisitor(), // done
-                new WinCheckInTwoVisitor(), // done
-                new OpponentWinInTwoVisitor(), // done
-                new BlockThreadInTwoVisitor(), // done
+                new BlockThreadInOneVisitor(),
+                new WinCheckInTwoVisitor(),
+                new OpponentWinInTwoVisitor(),
+                new BlockThreadInTwoVisitor(),
                 new WinCheckInThreeVisitor()
         );
 

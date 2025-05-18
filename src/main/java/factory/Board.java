@@ -20,12 +20,14 @@ public abstract class Board {
     private final int size;
     private final Mark[][] cells;
     private final Mark nextMove;
+    private final Mark firstMark;
 
 
-    public Board(Set<Move> boardState, int size, Mark nextMove) throws WrongBoardStateException {
+    public Board(Set<Move> boardState, int size, Mark nextMove, Mark firstMark) throws WrongBoardStateException {
         this.size = size;
         this.nextMove = nextMove;
         this.cells = new Mark[size][size];
+        this.firstMark = firstMark;
 
         for (int i = 0; i < size; i++)
             for (int j = 0; j < size; j++)
@@ -40,25 +42,11 @@ public abstract class Board {
                 throw new WrongBoardStateException();
             }
         }
-
-        System.out.print("   ");
-        for (int col = 0; col < size; col++) {
-            System.out.printf("%2d ", col);
-        }
-        System.out.println();
-        for (int row = 0; row < size; row++) {
-            System.out.printf("%2d ", row);
-            for (int col = 0; col < size; col++) {
-                System.out.print(" " + cells[col][row] + " ");
-            }
-            System.out.println();
-        }
-
     }
 
     public int getSize() { return size; }
-    public Mark get(int r, int c) { return cells[r][c]; }
-    public void set(int r, int c, Mark m) { cells[r][c] = m; }
+    public Mark get(int c, int r) { return cells[c][r]; }
+    public void set(int c, int r, Mark m) { cells[c][r] = m; }
 
     /** Tworzy memento (głęboką kopię stanu planszy) */
     public Memento createMemento() {
@@ -87,6 +75,10 @@ public abstract class Board {
             return Mark.NOUGHT;
         }
         return Mark.CROSS;
+    }
+
+    public Mark getFirstMark() {
+        return firstMark;
     }
 
     /** Klasa pamiątki */

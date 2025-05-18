@@ -9,7 +9,7 @@ import java.util.Set;
 public class PeriodicBoundaryBoardFactory extends BoardFactory{
 
     @Override
-    public Board create(Set<Move> boardState, int size, Mark nextMove) throws WrongBoardStateException {
-        return new PeriodicBoundaryBoard(boardState, size, nextMove);
+    public Board create(Set<Move> boardState, int size, Mark nextMove, Mark firstMark) throws WrongBoardStateException {
+        return new PeriodicBoundaryBoard(boardState, size, nextMove, firstMark);
     }
 }

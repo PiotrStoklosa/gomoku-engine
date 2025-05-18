@@ -50,9 +50,17 @@ public class CheckStateVisitor extends TemplateVisitor {
         }
 
         if (nextMoveMark == Mark.NOUGHT) {
-            return o - x == 0 || o - x == -1;
+            if (board.getFirstMark() == Mark.NOUGHT) {
+                return o - x == 0;
+            } else {
+                return x - o == 1;
+            }
         } else {
-            return x - o == 0 || x - o == -1;
+            if (board.getFirstMark() == Mark.CROSS) {
+                return x - o == 0;
+            } else {
+                return o - x == 1;
+            }
         }
     }
 

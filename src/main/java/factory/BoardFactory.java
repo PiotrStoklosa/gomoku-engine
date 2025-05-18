@@ -8,7 +8,7 @@ import java.util.Set;
 
 public abstract class BoardFactory {
 
-    public abstract Board create(Set<Move> boardState, int size, Mark nextMove) throws WrongBoardStateException;
+    public abstract Board create(Set<Move> boardState, int size, Mark nextMove, Mark firstMark) throws WrongBoardStateException;
 
     public static BoardFactory createBoard(boolean curve){
         if (curve){

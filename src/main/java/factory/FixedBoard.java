@@ -11,8 +11,8 @@ import java.util.Optional;
 import java.util.Set;
 
 public class FixedBoard extends Board{
-    public FixedBoard(Set<Move> boardState, int size, Mark nextMove) throws WrongBoardStateException {
-        super(boardState, size, nextMove);
+    public FixedBoard(Set<Move> boardState, int size, Mark nextMove, Mark firstMark) throws WrongBoardStateException {
+        super(boardState, size, nextMove, firstMark);
     }
 
     @Override

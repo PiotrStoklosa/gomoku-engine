@@ -1,25 +1,17 @@
 package visitor;
 
+import composite.WinInThreeMoveGroup;
 import factory.Board;
-import fais.zti.oramus.gomoku.Mark;
-import fais.zti.oramus.gomoku.Move;
 import fais.zti.oramus.gomoku.ResignException;
 import fais.zti.oramus.gomoku.TheWinnerIsException;
 import fais.zti.oramus.gomoku.WrongBoardStateException;
-import template.TemplateVisitor;
 
-import java.util.Optional;
-
-public class WinCheckInThreeVisitor extends TemplateVisitor {
-
+public class WinCheckInThreeVisitor extends CheckVisitorTemplate {
 
     @Override
     protected void scanForPatterns(Board board) throws TheWinnerIsException, ResignException, WrongBoardStateException {
-
-    }
-
-    @Override
-    protected Mark findMark() {
-        return null;
+        pattern = new WinInThreeMoveGroup();
+        nextMove = board.getNextMove();
+        super.scanForPatterns(board);
     }
 }

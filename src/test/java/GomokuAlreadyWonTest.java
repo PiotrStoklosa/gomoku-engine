@@ -9,20 +9,19 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static util.TestUtil.printBoard;
 
 public class GomokuAlreadyWonTest {
 
     static Set<Move> createBoardState1() {
         Set<Move> board = new HashSet<>();
 
-        // First Win
         board.add(new Move(new Position(0, 0), Mark.CROSS));
         board.add(new Move(new Position(1, 0), Mark.CROSS));
         board.add(new Move(new Position(2, 0), Mark.CROSS));
         board.add(new Move(new Position(3, 0), Mark.CROSS));
         board.add(new Move(new Position(4, 0), Mark.CROSS));
 
-        // 5 noughts
         board.add(new Move(new Position(5, 0), Mark.NOUGHT));
         board.add(new Move(new Position(6, 0), Mark.NOUGHT));
         board.add(new Move(new Position(7, 0), Mark.NOUGHT));
@@ -34,9 +33,11 @@ public class GomokuAlreadyWonTest {
 
     @Test
     void shouldThrowTheWinnerIsExceptionWhenWinForOnePlayerWithNonPeriodicBoard() {
+        printBoard(createBoardState1(), Mark.NOUGHT, false, Mark.NOUGHT);
         TheWinnerIsException ex = assertThrows(TheWinnerIsException.class, () -> {
             Gomoku gomoku = new Gomoku();
             gomoku.size(12);
+            gomoku.firstMark(Mark.NOUGHT);
             gomoku.nextMove(createBoardState1(), Mark.NOUGHT);
         });
         assertEquals(Mark.CROSS, ex.mark);
@@ -46,15 +47,12 @@ public class GomokuAlreadyWonTest {
     static Set<Move> createBoardState2() {
         Set<Move> board = new HashSet<>();
 
-        // First win (horizontal wrapping around right edge)
         board.add(new Move(new Position(10, 3), Mark.NOUGHT));
         board.add(new Move(new Position(11, 3), Mark.NOUGHT));
         board.add(new Move(new Position(0, 3), Mark.NOUGHT));
         board.add(new Move(new Position(1, 3), Mark.NOUGHT));
         board.add(new Move(new Position(2, 3), Mark.NOUGHT));
 
-
-        // NOUGHT moves
         board.add(new Move(new Position(4, 4), Mark.CROSS));
         board.add(new Move(new Position(6, 4), Mark.CROSS));
         board.add(new Move(new Position(8, 4), Mark.CROSS));
@@ -62,15 +60,16 @@ public class GomokuAlreadyWonTest {
         board.add(new Move(new Position(7, 5), Mark.CROSS));
         board.add(new Move(new Position(9, 5), Mark.CROSS));
 
-
         return board;
     }
 
     @Test
     void shouldThrowWrongBoardStateExceptionWhenTwoWinsForOnePlayerWithPeriodicBoard() {
+        printBoard(createBoardState2(), Mark.CROSS, true, Mark.NOUGHT);
         TheWinnerIsException ex = assertThrows(TheWinnerIsException.class, () -> {
             Gomoku gomoku = new Gomoku();
             gomoku.size(12);
+            gomoku.firstMark(Mark.CROSS);
             gomoku.periodicBoundaryConditionsInUse();
             gomoku.nextMove(createBoardState2(), Mark.NOUGHT);
         });
