@@ -26,8 +26,5 @@ public abstract class PatternGroup implements Pattern {
 
 
     @Override
-    public boolean matches(Board board, DirectionStrategy strategy, Position pos, Optional<Mark> mark) {
-
-        return false;
-    }
+    public abstract boolean matches(Board board, DirectionStrategy strategy, Position pos, Optional<Mark> mark);
 }

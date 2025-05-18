@@ -11,7 +11,7 @@ public class WinCheckInOneVisitor extends CheckVisitorTemplate {
 
     @Override
     protected void scanForPatterns(Board board) throws WrongBoardStateException, TheWinnerIsException, ResignException {
-        checkInOnePattern = new WinInOneMoveGroup();
+        pattern = new WinInOneMoveGroup();
         nextMove = board.getNextMove();
         super.scanForPatterns(board);
     }

@@ -12,10 +12,10 @@ import java.util.Optional;
 public class ThreatInTwoMovesGroup extends PatternGroup{
 
     public ThreatInTwoMovesGroup() {
-        patterns.add(new RowPattern(Direction.RIGHT, 3));
-        patterns.add(new RowPattern(Direction.UP, 3));
-        patterns.add(new RowPattern(Direction.UP_RIGHT, 3));
-        patterns.add(new RowPattern(Direction.UP_LEFT, 3));
+        patterns.add(new RowFullPattern(Direction.RIGHT, 3));
+        patterns.add(new RowFullPattern(Direction.UP, 3));
+        patterns.add(new RowFullPattern(Direction.UP_RIGHT, 3));
+        patterns.add(new RowFullPattern(Direction.UP_LEFT, 3));
     }
 
     @Override

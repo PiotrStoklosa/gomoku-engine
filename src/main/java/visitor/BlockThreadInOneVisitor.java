@@ -12,7 +12,7 @@ public class BlockThreadInOneVisitor extends CheckVisitorTemplate {
 
     @Override
     protected void scanForPatterns(Board board) throws TheWinnerIsException, ResignException, WrongBoardStateException {
-        checkInOnePattern= new ThreatInOneMoveGroup();
+        pattern = new ThreatInOneMoveGroup();
         nextMove = board.getOpponentMove();
         super.scanForPatterns(board);
         if (move != null) {

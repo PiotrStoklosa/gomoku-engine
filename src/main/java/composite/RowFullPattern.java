@@ -9,11 +9,10 @@ import strategy.DirectionStrategy;
 
 import java.util.Optional;
 
-public class RowPattern implements Pattern {
+public class RowFullPattern extends Row implements Pattern {
     private final Direction direction;
-    protected final int length;
 
-    public RowPattern(Direction direction, int length) {
+    public RowFullPattern(Direction direction, int length) {
         this.direction = direction;
         this.length = length;
     }

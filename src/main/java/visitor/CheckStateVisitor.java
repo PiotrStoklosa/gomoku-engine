@@ -3,7 +3,7 @@ package visitor;
 
 import composite.IllegalStateGroup;
 import composite.Pattern;
-import composite.RowPattern;
+import composite.RowFullPattern;
 import factory.Board;
 import fais.zti.oramus.gomoku.Mark;
 import fais.zti.oramus.gomoku.Position;
@@ -21,7 +21,7 @@ public class CheckStateVisitor extends TemplateVisitor {
 
     private Mark clearWin(Board board, DirectionStrategy strategy, Position pos) {
         for (Direction direction : Direction.values()) {
-            if (new RowPattern(direction, 5).matches(board, strategy, pos, Optional.empty())) {
+            if (new RowFullPattern(direction, 5).matches(board, strategy, pos, Optional.empty())) {
                 Mark mark = board.get(pos.col(), pos.row());
                 Position newPosition = pos;
                 for (int i = 0; i < 5; i++) {

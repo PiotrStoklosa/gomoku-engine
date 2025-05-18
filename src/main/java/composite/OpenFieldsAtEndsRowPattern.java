@@ -10,15 +10,20 @@ import strategy.DirectionStrategy;
 import java.util.Optional;
 
 public class OpenFieldsAtEndsRowPattern implements Pattern {
-    private final RowPattern rowPattern;
+    protected Row rowPattern;
     private final Direction direction;
     private final int nulls;
     private Move foundMove;
 
-    public OpenFieldsAtEndsRowPattern(Direction direction, int length, int nulls) {
+    public OpenFieldsAtEndsRowPattern(Direction direction, int length, int nulls, boolean full) {
         this.direction = direction;
-        this.rowPattern = new RowPattern(direction, length);
         this.nulls = nulls;
+        if (full){
+            rowPattern = new RowFullPattern(direction, length);
+        }
+        else{
+            rowPattern = new RowWithEmptyFieldsPattern(direction, length);
+        }
     }
 
     @Override
@@ -33,9 +38,9 @@ public class OpenFieldsAtEndsRowPattern implements Pattern {
         Position endPosition = null;
 
         Mark m = mark.orElse(board.get(pos.col(), pos.row()));
-        Optional<Position> beforeStart;
+        Optional<Position> beforeStart = Optional.of(pos);
         for (int i = 0; i < 2; i++) {
-            beforeStart = strategy.next(pos, direction.opposite());
+            beforeStart = strategy.next(beforeStart.get(), direction.opposite());
             if (beforeStart.isPresent()) {
                 Position p = beforeStart.get();
                 if (board.get(p.col(), p.row()) == Mark.NULL) {
@@ -52,15 +57,18 @@ public class OpenFieldsAtEndsRowPattern implements Pattern {
         }
 
         Position current = pos;
-        for (int i = 1; i < rowPattern.length; i++) {
+        for (int i = 1; i < rowPattern.getLength(); i++) {
             Optional<Position> next = strategy.next(current, direction);
             if (next.isEmpty()) return false;
+            if (board.get(next.get().col(), next.get().row()) == Mark.NULL) {
+                foundMove = new Move(next.get(), m);
+            }
             current = next.get();
         }
 
-        Optional<Position> afterEnd;
+        Optional<Position> afterEnd = Optional.of(current);
         for (int i = 0; i < 2; i++) {
-            afterEnd = strategy.next(current, direction);
+            afterEnd = strategy.next(afterEnd.get(), direction);
             if (afterEnd.isPresent()) {
                 Position p = afterEnd.get();
                 if (board.get(p.col(), p.row()) == Mark.NULL) {
@@ -76,30 +84,36 @@ public class OpenFieldsAtEndsRowPattern implements Pattern {
 
         if (nulls == 3) {
             if (begin == 2) {
-                foundMove = new Move(beginPosition, m);
+                updateFoundMove(new Move(beginPosition, m));
                 return true;
             } else if (end == 2) {
-                foundMove = new Move(endPosition, m);
+                updateFoundMove(new Move(endPosition, m));
                 return true;
             }
             return false;
         }
         if (nulls == 2) {
             if (begin > 0 && end > 0) {
-                foundMove = new Move(beginPosition, m);
+                updateFoundMove(new Move(beginPosition, m));
                 return true;
             }
             return false;
         }
         if (begin > 0 && end == 0) {
-            foundMove = new Move(beginPosition, m);
+            updateFoundMove(new Move(beginPosition, m));
             return true;
         }
         if (end > 0 && begin == 0) {
-            foundMove = new Move(endPosition, m);
+            updateFoundMove(new Move(endPosition, m));
             return true;
         }
         return false;
+    }
+
+    private void updateFoundMove(Move move){
+        if (rowPattern instanceof RowFullPattern){
+            foundMove = move;
+        }
     }
 
     @Override

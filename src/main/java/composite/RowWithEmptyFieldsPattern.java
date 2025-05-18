@@ -9,13 +9,14 @@ import strategy.DirectionStrategy;
 
 import java.util.Optional;
 
-public class RowWithEmptyFieldsPattern implements Pattern{
+public class RowWithEmptyFieldsPattern extends Row implements Pattern{
 
     Move foundMove;
     private final Direction direction;
 
-    public RowWithEmptyFieldsPattern(Direction direction) {
+    public RowWithEmptyFieldsPattern(Direction direction, int length) {
         this.direction = direction;
+        this.length = length;
     }
     @Override
     public boolean matches(Board board, DirectionStrategy strategy, Position pos, Optional<Mark> mark) {
@@ -24,7 +25,7 @@ public class RowWithEmptyFieldsPattern implements Pattern{
         Position current = pos;
         int mismatches = 0;
         Optional<Position> next = Optional.of(current);
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < length; i++) {
             if (next.isPresent()) {
                 current = next.get();
             } else {
@@ -32,7 +33,7 @@ public class RowWithEmptyFieldsPattern implements Pattern{
             }
             Mark currentMark = board.get(current.col(), current.row());
             if (currentMark != m) {
-                if (currentMark != Mark.NULL || i == 0 || i == 4) {
+                if (currentMark != Mark.NULL || i == 0 || i + 1 == length) {
                     return false;
                 }
                 mismatches++;

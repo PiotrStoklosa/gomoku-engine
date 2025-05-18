@@ -76,9 +76,9 @@ public class Gomoku implements Game {
                 new WinCheckInOneVisitor(), // done
                 new BlockThreadInOneVisitor(), // done
                 new OpponentWinInOneVisitor(), // done
-                new WinCheckInTwoVisitor(),
-                new OpponentWinInTwoVisitor(),
+                new WinCheckInTwoVisitor(), // done
                 new BlockThreadInTwoVisitor(),
+                new OpponentWinInTwoVisitor(),
                 new WinCheckInThreeVisitor()
         );
 

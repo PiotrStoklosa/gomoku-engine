@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public abstract class CheckVisitorTemplate extends TemplateVisitor {
 
-    protected Pattern checkInOnePattern;
+    protected Pattern pattern;
     Mark nextMove = null;
 
     @Override
@@ -21,8 +21,8 @@ public abstract class CheckVisitorTemplate extends TemplateVisitor {
         int size = board.getSize();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (checkInOnePattern.matches(board, strategy, new Position(i, j), Optional.of(nextMove))) {
-                    move = checkInOnePattern.getFoundMove();
+                if (pattern.matches(board, strategy, new Position(i, j), Optional.of(nextMove))) {
+                    move = pattern.getFoundMove();
                     return;
                 }
             }

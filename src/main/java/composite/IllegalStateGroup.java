@@ -13,7 +13,7 @@ public class IllegalStateGroup extends PatternGroup {
 
     public IllegalStateGroup() {
         for (Direction direction : Direction.values()) {
-            patterns.add(new RowPattern(direction, 5));
+            patterns.add(new RowFullPattern(direction, 5));
         }
     }
 

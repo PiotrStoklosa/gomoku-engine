@@ -15,13 +15,13 @@ public class WinInOneMoveGroup extends PatternGroup {
 
     public WinInOneMoveGroup() {
         for (Direction direction : Direction.values()) {
-            patterns.add(new OpenFieldsAtEndsRowPattern(direction, 4, 2));
+            patterns.add(new OpenFieldsAtEndsRowPattern(direction, 4, 2, true));
         }
         for (Direction direction : Direction.values()) {
-            patterns.add(new OpenFieldsAtEndsRowPattern(direction, 4, 1));
+            patterns.add(new OpenFieldsAtEndsRowPattern(direction, 4, 1, true));
         }
         for (Direction direction : Direction.values()) {
-            patterns.add(new RowWithEmptyFieldsPattern(direction));
+            patterns.add(new RowWithEmptyFieldsPattern(direction, 5));
         }
 
     }

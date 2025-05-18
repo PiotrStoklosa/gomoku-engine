@@ -14,7 +14,7 @@ public class NotBlockingWinInOneMoveGroup extends PatternGroup{
 
     public NotBlockingWinInOneMoveGroup() {
         for (Direction direction : Direction.values()) {
-            patterns.add(new OpenFieldsAtEndsRowPattern(direction, 4, 2));
+            patterns.add(new OpenFieldsAtEndsRowPattern(direction, 4, 2, true));
         }
     }
 
