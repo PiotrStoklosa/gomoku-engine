@@ -12,19 +12,27 @@ import java.util.Optional;
 public class ThreatInTwoMovesGroup extends PatternGroup{
 
     public ThreatInTwoMovesGroup() {
-        patterns.add(new RowFullPattern(Direction.RIGHT, 3));
-        patterns.add(new RowFullPattern(Direction.UP, 3));
-        patterns.add(new RowFullPattern(Direction.UP_RIGHT, 3));
-        patterns.add(new RowFullPattern(Direction.UP_LEFT, 3));
-    }
-
-    @Override
-    public boolean matches(Board board, DirectionStrategy strategy, Position pos, Optional<Mark> mark) {
-        return false;
+        for (Direction direction : Direction.values()) {
+            patterns.add(new OpenFieldsAtEndsRowPattern(direction, 3, 2, true));
+        }
+        for (Direction direction : Direction.values()) {
+            patterns.add(new OpenFieldsAtEndsRowPattern(direction, 4, 2, false));
+        }
     }
 
     @Override
     public Move getFoundMove() {
-        return null;
+        return foundMove;
+    }
+
+    @Override
+    public boolean matches(Board board, DirectionStrategy strategy, Position pos, Optional<Mark> mark) {
+        for (Pattern pattern : patterns) {
+            if (pattern.matches(board, strategy, pos, mark)) {
+                foundMove = pattern.getFoundMove();
+                return true;
+            }
+        }
+        return false;
     }
 }
