@@ -1,5 +1,6 @@
-package composite;
+package composite.group;
 
+import composite.Pattern;
 import factory.Board;
 import fais.zti.oramus.gomoku.Mark;
 import fais.zti.oramus.gomoku.Move;
@@ -15,15 +16,6 @@ public abstract class PatternGroup implements Pattern {
     Move foundMove = null;
 
     protected List<Pattern> patterns = new ArrayList<>();
-
-    public void addPatterns(Pattern pattern) {
-        patterns.add(pattern);
-    }
-
-    public void removePattern(Pattern pattern) {
-        patterns.remove(pattern);
-    }
-
 
     @Override
     public abstract boolean matches(Board board, DirectionStrategy strategy, Position pos, Optional<Mark> mark);

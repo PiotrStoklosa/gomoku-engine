@@ -1,7 +1,7 @@
 package visitor;
 
 
-import composite.IllegalStateGroup;
+import composite.group.IllegalStateGroup;
 import composite.Pattern;
 import composite.RowFullPattern;
 import factory.Board;

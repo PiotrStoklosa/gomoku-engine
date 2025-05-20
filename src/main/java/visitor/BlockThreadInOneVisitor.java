@@ -1,6 +1,6 @@
 package visitor;
 
-import composite.ThreatInOneMoveGroup;
+import composite.group.ThreatInOneMoveGroup;
 import factory.Board;
 import fais.zti.oramus.gomoku.Move;
 import fais.zti.oramus.gomoku.ResignException;

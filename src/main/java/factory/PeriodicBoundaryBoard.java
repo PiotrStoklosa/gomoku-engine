@@ -10,9 +10,9 @@ import visitor.BoardVisitor;
 import java.util.Optional;
 import java.util.Set;
 
-public class PeriodicBoundaryBoard extends Board{
+public class PeriodicBoundaryBoard extends Board {
     public PeriodicBoundaryBoard(Set<Move> boardState, int size, Mark nextMove, Mark firstMark) throws WrongBoardStateException {
-        super( boardState, size, nextMove, firstMark);
+        super(boardState, size, nextMove, firstMark);
     }
 
     @Override

@@ -44,23 +44,27 @@ public abstract class Board {
         }
     }
 
-    public int getSize() { return size; }
-    public Mark get(int c, int r) { return cells[c][r]; }
-    public void set(int c, int r, Mark m) { cells[c][r] = m; }
+    public int getSize() {
+        return size;
+    }
 
-    /** Tworzy memento (głęboką kopię stanu planszy) */
+    public Mark get(int c, int r) {
+        return cells[c][r];
+    }
+
+    public void set(int c, int r, Mark m) {
+        cells[c][r] = m;
+    }
+
     public Memento createMemento() {
         Mark[][] copy = new Mark[size][size];
         for (int i = 0; i < size; i++) {
             copy[i] = Arrays.copyOf(cells[i], size);
         }
-        return new Memento(size, copy);
+        return new Memento(copy);
     }
 
-    /** Przywraca stan z mementa */
     public void restore(Memento m) {
-        if (m.size != this.size)
-            throw new IllegalArgumentException("Niezgodny rozmiar");
         for (int i = 0; i < size; i++) {
             System.arraycopy(m.state[i], 0, this.cells[i], 0, size);
         }
@@ -81,12 +85,10 @@ public abstract class Board {
         return firstMark;
     }
 
-    /** Klasa pamiątki */
     public static class Memento {
-        private final int size;
         private final Mark[][] state;
-        private Memento(int size, Mark[][] state) {
-            this.size = size;
+
+        private Memento(Mark[][] state) {
             this.state = state;
         }
     }

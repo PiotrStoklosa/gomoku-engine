@@ -1,5 +1,7 @@
-package composite;
+package composite.group;
 
+import composite.Pattern;
+import composite.RowFullPattern;
 import factory.Board;
 import fais.zti.oramus.gomoku.Mark;
 import fais.zti.oramus.gomoku.Move;

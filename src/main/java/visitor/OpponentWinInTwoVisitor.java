@@ -1,6 +1,6 @@
 package visitor;
 
-import composite.NotBlockingWinInTwoMoveGroup;
+import composite.group.NotBlockingWinInTwoMoveGroup;
 import factory.Board;
 import fais.zti.oramus.gomoku.Mark;
 import fais.zti.oramus.gomoku.ResignException;

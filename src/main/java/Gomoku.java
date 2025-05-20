@@ -23,9 +23,9 @@ import java.util.Set;
 
 public class Gomoku implements Game {
 
-    boolean periodicBoundaryConditionsInUse = false;
-    int size;
-    Mark firstMark;
+    private boolean periodicBoundaryConditionsInUse = false;
+    private int size;
+    private Mark firstMark;
     private final List<BoardVisitor> boardVisitorList;
 
 
@@ -47,13 +47,10 @@ public class Gomoku implements Game {
     @Override
     public Move nextMove(Set<Move> boardState, Mark nextMoveMark) throws ResignException, TheWinnerIsException, WrongBoardStateException {
 
-
         Board board = BoardFactory.createBoard(periodicBoundaryConditionsInUse).create(boardState, size, nextMoveMark, firstMark);
 
         for (BoardVisitor visitor : boardVisitorList) {
-
             Board.Memento m = board.createMemento();
-
             Optional<Move> move = board.accept(visitor);
             if (move.isPresent()) {
                 return move.get();

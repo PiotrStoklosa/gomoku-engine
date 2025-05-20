@@ -1,6 +1,6 @@
 package visitor;
 
-import composite.WinInTwoMoveGroup;
+import composite.group.WinInTwoMoveGroup;
 import factory.Board;
 import fais.zti.oramus.gomoku.ResignException;
 import fais.zti.oramus.gomoku.TheWinnerIsException;

@@ -1,5 +1,8 @@
-package composite;
+package composite.group;
 
+import composite.OpenFieldsAtEndsRowPattern;
+import composite.Pattern;
+import composite.RowWithEmptyFieldsPattern;
 import factory.Board;
 import fais.zti.oramus.gomoku.Mark;
 import fais.zti.oramus.gomoku.Move;
@@ -9,14 +12,10 @@ import strategy.DirectionStrategy;
 
 import java.util.Optional;
 
-public class WinInOneMoveGroup extends PatternGroup {
-
+public class ThreatInOneMoveGroup extends PatternGroup{
     private Move foundMove;
 
-    public WinInOneMoveGroup() {
-        for (Direction direction : Direction.values()) {
-            patterns.add(new OpenFieldsAtEndsRowPattern(direction, 4, 2, true));
-        }
+    public ThreatInOneMoveGroup() {
         for (Direction direction : Direction.values()) {
             patterns.add(new OpenFieldsAtEndsRowPattern(direction, 4, 1, true));
         }
