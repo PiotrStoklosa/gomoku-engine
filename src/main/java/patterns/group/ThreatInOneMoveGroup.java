@@ -1,25 +1,19 @@
-package composite.group;
+package patterns.group;
 
-import composite.OpenFieldsAtEndsRowPattern;
-import composite.Pattern;
-import composite.RowWithEmptyFieldsPattern;
-import factory.Board;
+import patterns.OpenFieldsAtEndsRowPattern;
+import patterns.Pattern;
+import patterns.RowWithEmptyFieldsPattern;
+import boardfactory.Board;
 import fais.zti.oramus.gomoku.Mark;
 import fais.zti.oramus.gomoku.Move;
 import fais.zti.oramus.gomoku.Position;
 import strategy.Direction;
 import strategy.DirectionStrategy;
 
-import java.util.Optional;
-
-public class WinInOneMoveGroup extends PatternGroup {
-
+public class ThreatInOneMoveGroup extends PatternGroup{
     private Move foundMove;
 
-    public WinInOneMoveGroup() {
-        for (Direction direction : Direction.values()) {
-            patterns.add(new OpenFieldsAtEndsRowPattern(direction, 4, 2, true));
-        }
+    public ThreatInOneMoveGroup() {
         for (Direction direction : Direction.values()) {
             patterns.add(new OpenFieldsAtEndsRowPattern(direction, 4, 1, true));
         }
@@ -30,7 +24,7 @@ public class WinInOneMoveGroup extends PatternGroup {
     }
 
     @Override
-    public boolean matches(Board board, DirectionStrategy strategy, Position pos, Optional<Mark> mark) {
+    public boolean matches(Board board, DirectionStrategy strategy, Position pos, Mark mark) {
         for (Pattern pattern : patterns) {
             if (pattern.matches(board, strategy, pos, mark)) {
                 foundMove = pattern.getFoundMove();

@@ -1,14 +1,12 @@
-package composite;
+package patterns;
 
-import factory.Board;
+import boardfactory.Board;
 import fais.zti.oramus.gomoku.Mark;
 import fais.zti.oramus.gomoku.Move;
 import fais.zti.oramus.gomoku.Position;
 import strategy.DirectionStrategy;
 
-import java.util.Optional;
-
 public interface Pattern {
-    boolean matches(Board board, DirectionStrategy strategy, Position pos, Optional<Mark> mark);
+    boolean matches(Board board, DirectionStrategy strategy, Position pos, Mark mark);
     Move getFoundMove();
 }

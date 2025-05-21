@@ -1,7 +1,7 @@
 package visitor;
 
-import composite.group.WinInThreeMoveGroup;
-import factory.Board;
+import patterns.group.WinInThreeMoveGroup;
+import boardfactory.Board;
 import fais.zti.oramus.gomoku.ResignException;
 import fais.zti.oramus.gomoku.TheWinnerIsException;
 import fais.zti.oramus.gomoku.WrongBoardStateException;

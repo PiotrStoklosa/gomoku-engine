@@ -1,4 +1,4 @@
-package factory;
+package boardfactory;
 
 import fais.zti.oramus.gomoku.Mark;
 import fais.zti.oramus.gomoku.Move;
@@ -6,10 +6,10 @@ import fais.zti.oramus.gomoku.WrongBoardStateException;
 
 import java.util.Set;
 
-public class FixedBoardFactory extends BoardFactory {
+public class PeriodicBoundaryBoardFactory extends BoardFactory{
 
     @Override
     public Board create(Set<Move> boardState, int size, Mark nextMove, Mark firstMark) throws WrongBoardStateException {
-        return new FixedBoard( boardState, size, nextMove, firstMark);
+        return new PeriodicBoundaryBoard(boardState, size, nextMove, firstMark);
     }
 }

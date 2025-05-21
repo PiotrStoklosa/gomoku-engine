@@ -1,5 +1,5 @@
-import factory.Board;
-import factory.BoardFactory;
+import boardfactory.Board;
+import boardfactory.BoardFactory;
 import fais.zti.oramus.gomoku.Game;
 import fais.zti.oramus.gomoku.Mark;
 import fais.zti.oramus.gomoku.Move;

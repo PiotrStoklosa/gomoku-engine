@@ -1,15 +1,13 @@
-package composite.group;
+package patterns.group;
 
-import composite.Pattern;
-import composite.RowFullPattern;
-import factory.Board;
+import patterns.Pattern;
+import patterns.RowFullPattern;
+import boardfactory.Board;
 import fais.zti.oramus.gomoku.Mark;
 import fais.zti.oramus.gomoku.Move;
 import fais.zti.oramus.gomoku.Position;
 import strategy.Direction;
 import strategy.DirectionStrategy;
-
-import java.util.Optional;
 
 public class IllegalStateGroup extends PatternGroup {
 
@@ -20,7 +18,7 @@ public class IllegalStateGroup extends PatternGroup {
     }
 
     @Override
-    public boolean matches(Board board, DirectionStrategy strategy, Position pos, Optional<Mark> mark) {
+    public boolean matches(Board board, DirectionStrategy strategy, Position pos, Mark mark) {
         for (Pattern pattern : patterns) {
             if (pattern.matches(board, strategy, pos, mark)) {
                 return true;

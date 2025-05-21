@@ -1,4 +1,4 @@
-package factory;
+package boardfactory;
 
 import fais.zti.oramus.gomoku.Mark;
 import fais.zti.oramus.gomoku.Move;

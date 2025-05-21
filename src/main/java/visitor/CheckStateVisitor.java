@@ -1,10 +1,10 @@
 package visitor;
 
 
-import composite.group.IllegalStateGroup;
-import composite.Pattern;
-import composite.RowFullPattern;
-import factory.Board;
+import patterns.Pattern;
+import patterns.RowFullPattern;
+import patterns.group.IllegalStateGroup;
+import boardfactory.Board;
 import fais.zti.oramus.gomoku.Mark;
 import fais.zti.oramus.gomoku.Position;
 import fais.zti.oramus.gomoku.TheWinnerIsException;
@@ -17,16 +17,23 @@ import java.util.Optional;
 
 public class CheckStateVisitor extends TemplateVisitor {
 
-    Pattern invalidState = new IllegalStateGroup();
+    private final Pattern invalidState = new IllegalStateGroup();
 
     private Mark clearWin(Board board, DirectionStrategy strategy, Position pos) {
         for (Direction direction : Direction.values()) {
-            if (new RowFullPattern(direction, 5).matches(board, strategy, pos, Optional.empty())) {
+            if (new RowFullPattern(direction, 5).matches(board, strategy, pos, null)) {
                 Mark mark = board.get(pos.col(), pos.row());
                 Position newPosition = pos;
                 for (int i = 0; i < 5; i++) {
                     board.set(newPosition.col(), newPosition.row(), Mark.NULL);
-                    newPosition = strategy.next(newPosition, direction).get();
+                    Optional<Position> next = strategy.next(newPosition, direction);
+                    if (next.isPresent()) {
+                        newPosition = next.get();
+                    }
+                    else{
+                        throw new IllegalStateException();
+                    }
+
                 }
                 return mark;
             }
@@ -75,7 +82,7 @@ public class CheckStateVisitor extends TemplateVisitor {
         int size = board.getSize();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (invalidState.matches(board, strategy, new Position(i, j), Optional.empty())) {
+                if (invalidState.matches(board, strategy, new Position(i, j), null)) {
                     if (alreadyWin.isPresent()) {
                         throw new WrongBoardStateException();
                     }
@@ -86,11 +93,6 @@ public class CheckStateVisitor extends TemplateVisitor {
         if (alreadyWin.isPresent()) {
             throw new TheWinnerIsException(alreadyWin.get());
         }
-    }
-
-    @Override
-    protected Mark findMark() {
-        return null;
     }
 
 }

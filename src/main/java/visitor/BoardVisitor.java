@@ -1,8 +1,8 @@
 package visitor;
 
 
-import factory.FixedBoard;
-import factory.PeriodicBoundaryBoard;
+import boardfactory.FixedBoard;
+import boardfactory.PeriodicBoundaryBoard;
 import fais.zti.oramus.gomoku.Move;
 import fais.zti.oramus.gomoku.ResignException;
 import fais.zti.oramus.gomoku.TheWinnerIsException;

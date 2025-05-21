@@ -1,6 +1,6 @@
-package composite;
+package patterns;
 
-import factory.Board;
+import boardfactory.Board;
 import fais.zti.oramus.gomoku.Mark;
 import fais.zti.oramus.gomoku.Move;
 import fais.zti.oramus.gomoku.Position;
@@ -10,7 +10,7 @@ import strategy.DirectionStrategy;
 import java.util.Optional;
 
 public class OpenFieldsAtEndsRowPattern implements Pattern {
-    protected Row rowPattern;
+    protected final Row rowPattern;
     private final Direction direction;
     private final int nulls;
     private Move foundMove;
@@ -18,16 +18,15 @@ public class OpenFieldsAtEndsRowPattern implements Pattern {
     public OpenFieldsAtEndsRowPattern(Direction direction, int length, int nulls, boolean full) {
         this.direction = direction;
         this.nulls = nulls;
-        if (full){
+        if (full) {
             rowPattern = new RowFullPattern(direction, length);
-        }
-        else{
+        } else {
             rowPattern = new RowWithEmptyFieldsPattern(direction, length);
         }
     }
 
     @Override
-    public boolean matches(Board board, DirectionStrategy strategy, Position pos, Optional<Mark> mark) {
+    public boolean matches(Board board, DirectionStrategy strategy, Position pos, Mark mark) {
 
         if (!rowPattern.matches(board, strategy, pos, mark)) {
             return false;
@@ -37,7 +36,6 @@ public class OpenFieldsAtEndsRowPattern implements Pattern {
         int end = 0;
         Position endPosition = null;
 
-        Mark m = mark.orElse(board.get(pos.col(), pos.row()));
         Optional<Position> beforeStart = Optional.of(pos);
         for (int i = 0; i < 2; i++) {
             beforeStart = strategy.next(beforeStart.get(), direction.opposite());
@@ -48,7 +46,7 @@ public class OpenFieldsAtEndsRowPattern implements Pattern {
                         beginPosition = p;
                     }
                     begin++;
-                } else{
+                } else {
                     break;
                 }
             } else {
@@ -61,7 +59,7 @@ public class OpenFieldsAtEndsRowPattern implements Pattern {
             Optional<Position> next = strategy.next(current, direction);
             if (next.isEmpty()) return false;
             if (board.get(next.get().col(), next.get().row()) == Mark.NULL) {
-                foundMove = new Move(next.get(), m);
+                foundMove = new Move(next.get(), mark);
             }
             current = next.get();
         }
@@ -76,7 +74,7 @@ public class OpenFieldsAtEndsRowPattern implements Pattern {
                         endPosition = p;
                     }
                     end++;
-                } else{
+                } else {
                     break;
                 }
             } else {
@@ -86,34 +84,34 @@ public class OpenFieldsAtEndsRowPattern implements Pattern {
 
         if (nulls == 3) {
             if (begin == 2) {
-                updateFoundMove(new Move(beginPosition, m));
+                updateFoundMove(new Move(beginPosition, mark));
                 return true;
             } else if (end == 2) {
-                updateFoundMove(new Move(endPosition, m));
+                updateFoundMove(new Move(endPosition, mark));
                 return true;
             }
             return false;
         }
         if (nulls == 2) {
             if (begin > 0 && end > 0) {
-                updateFoundMove(new Move(beginPosition, m));
+                updateFoundMove(new Move(beginPosition, mark));
                 return true;
             }
             return false;
         }
         if (begin > 0 && end == 0) {
-            updateFoundMove(new Move(beginPosition, m));
+            updateFoundMove(new Move(beginPosition, mark));
             return true;
         }
         if (end > 0 && begin == 0) {
-            updateFoundMove(new Move(endPosition, m));
+            updateFoundMove(new Move(endPosition, mark));
             return true;
         }
         return false;
     }
 
-    private void updateFoundMove(Move move){
-        if (rowPattern instanceof RowFullPattern){
+    private void updateFoundMove(Move move) {
+        if (rowPattern instanceof RowFullPattern) {
             foundMove = move;
         }
     }

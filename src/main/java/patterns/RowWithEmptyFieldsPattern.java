@@ -1,6 +1,6 @@
-package composite;
+package patterns;
 
-import factory.Board;
+import boardfactory.Board;
 import fais.zti.oramus.gomoku.Mark;
 import fais.zti.oramus.gomoku.Move;
 import fais.zti.oramus.gomoku.Position;
@@ -19,8 +19,7 @@ public class RowWithEmptyFieldsPattern extends Row implements Pattern{
         this.length = length;
     }
     @Override
-    public boolean matches(Board board, DirectionStrategy strategy, Position pos, Optional<Mark> mark) {
-        Mark m = mark.orElse(board.get(pos.col(), pos.row()));
+    public boolean matches(Board board, DirectionStrategy strategy, Position pos, Mark mark) {
 
         Position current = pos;
         int mismatches = 0;
@@ -32,12 +31,12 @@ public class RowWithEmptyFieldsPattern extends Row implements Pattern{
                 return false;
             }
             Mark currentMark = board.get(current.col(), current.row());
-            if (currentMark != m) {
+            if (currentMark != mark) {
                 if (currentMark != Mark.NULL || i == 0 || i + 1 == length) {
                     return false;
                 }
                 mismatches++;
-                foundMove = new Move(current,m);
+                foundMove = new Move(current,mark);
             }
 
             if (mismatches > 1) {

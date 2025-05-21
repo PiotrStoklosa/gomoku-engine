@@ -1,7 +1,7 @@
 package visitor;
 
-import composite.group.WinInTwoMoveGroup;
-import factory.Board;
+import patterns.group.WinInTwoMoveGroup;
+import boardfactory.Board;
 import fais.zti.oramus.gomoku.ResignException;
 import fais.zti.oramus.gomoku.TheWinnerIsException;
 import fais.zti.oramus.gomoku.WrongBoardStateException;
@@ -14,5 +14,4 @@ public class WinCheckInTwoVisitor extends CheckVisitorTemplate {
         nextMove = board.getNextMove();
         super.scanForPatterns(board);
     }
-
 }

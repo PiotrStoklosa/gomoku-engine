@@ -1,7 +1,7 @@
 package visitor;
 
-import composite.group.ThreatInTwoMovesGroup;
-import factory.Board;
+import patterns.group.ThreatInTwoMovesGroup;
+import boardfactory.Board;
 import fais.zti.oramus.gomoku.Move;
 import fais.zti.oramus.gomoku.ResignException;
 import fais.zti.oramus.gomoku.TheWinnerIsException;

@@ -1,9 +1,8 @@
 package template;
 
-import factory.Board;
-import factory.FixedBoard;
-import factory.PeriodicBoundaryBoard;
-import fais.zti.oramus.gomoku.Mark;
+import boardfactory.Board;
+import boardfactory.FixedBoard;
+import boardfactory.PeriodicBoundaryBoard;
 import fais.zti.oramus.gomoku.Move;
 import fais.zti.oramus.gomoku.ResignException;
 import fais.zti.oramus.gomoku.TheWinnerIsException;
@@ -40,5 +39,4 @@ public abstract class TemplateVisitor implements BoardVisitor {
         return Optional.ofNullable(move);
     }
 
-    protected abstract Mark findMark();
 }
