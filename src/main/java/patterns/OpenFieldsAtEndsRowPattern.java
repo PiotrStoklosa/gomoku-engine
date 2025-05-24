@@ -83,10 +83,10 @@ public class OpenFieldsAtEndsRowPattern implements Pattern {
         }
 
         if (nulls == 3) {
-            if (begin == 2) {
+            if (begin == 2 && end > 0) {
                 updateFoundMove(new Move(beginPosition, mark));
                 return true;
-            } else if (end == 2) {
+            } else if (end == 2 && begin > 0) {
                 updateFoundMove(new Move(endPosition, mark));
                 return true;
             }
