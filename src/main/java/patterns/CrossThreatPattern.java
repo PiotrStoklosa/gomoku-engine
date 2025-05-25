@@ -20,7 +20,9 @@ public class CrossThreatPattern implements Pattern {
 
     @Override
     public boolean matches(Board board, DirectionStrategy strategy, Position pos, Mark mark) {
-
+        if (!mark.equals(board.get(pos.col(), pos.row()))){
+            return false;
+        }
         Optional<Position> pos1 = strategy.next(pos, direction);
         Optional<Position> pos2 = strategy.next(pos, direction.opposite());
         if (pos1.isEmpty() || pos2.isEmpty()) {

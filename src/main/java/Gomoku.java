@@ -7,6 +7,7 @@ import fais.zti.oramus.gomoku.ResignException;
 import fais.zti.oramus.gomoku.TheWinnerIsException;
 import fais.zti.oramus.gomoku.WrongBoardStateException;
 import visitor.BlockThreadInOneVisitor;
+import visitor.BlockThreadInThreeVisitor;
 import visitor.BlockThreadInTwoVisitor;
 import visitor.BoardVisitor;
 import visitor.CheckStateVisitor;
@@ -70,7 +71,8 @@ public class Gomoku implements Game {
                 new WinCheckInTwoVisitor(),
                 new OpponentWinInTwoVisitor(),
                 new BlockThreadInTwoVisitor(),
-                new WinCheckInThreeVisitor()
+                new WinCheckInThreeVisitor(),
+                new BlockThreadInThreeVisitor()
         );
 
     }
