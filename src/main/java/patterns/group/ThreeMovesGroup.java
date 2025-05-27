@@ -25,6 +25,9 @@ public class ThreeMovesGroup extends PatternGroup{
     @Override
     public boolean matches(Board board, DirectionStrategy strategy, Position pos, Mark mark) {
         Board.Memento memento = board.createMemento();
+        if (board.get(pos.col(), pos.row()) != Mark.NULL) {
+            return false;
+        }
         board.set(pos.col(), pos.row(), mark);
         boolean patternAlreadyFound = false;
         for (Pattern pattern : patterns) {
