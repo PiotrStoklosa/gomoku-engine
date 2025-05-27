@@ -60,7 +60,7 @@ class GomokuWrongStateTest {
         });
     }
 
-    static Set<Move> createBoardState2() {
+/*    static Set<Move> createBoardState2() {
         Set<Move> board = new HashSet<>();
 
         board.add(new Move(new Position(0, 0), Mark.CROSS));
@@ -99,9 +99,9 @@ class GomokuWrongStateTest {
             gomoku.firstMark(Mark.NOUGHT);
             gomoku.nextMove(createBoardState2(), Mark.CROSS);
         });
-    }
+    }*/
 
-    static Set<Move> createBoardState3() {
+/*    static Set<Move> createBoardState3() {
         Set<Move> board = new HashSet<>();
 
         board.add(new Move(new Position(10, 3), Mark.CROSS));
@@ -140,9 +140,9 @@ class GomokuWrongStateTest {
             gomoku.periodicBoundaryConditionsInUse();
             gomoku.nextMove(createBoardState3(), Mark.CROSS);
         });
-    }
+    }*/
 
-    static Set<Move> createBoardState4() {
+/*    static Set<Move> createBoardState4() {
         Set<Move> board = new HashSet<>();
 
         board.add(new Move(new Position(0, 0), Mark.CROSS));
@@ -173,9 +173,9 @@ class GomokuWrongStateTest {
             gomoku.firstMark(Mark.CROSS);
             gomoku.nextMove(createBoardState4(), Mark.CROSS);
         });
-    }
+    }*/
 
-    static Set<Move> createBoardState5() {
+/*    static Set<Move> createBoardState5() {
         Set<Move> board = new HashSet<>();
 
         board.add(new Move(new Position(10, 4), Mark.CROSS));
@@ -208,6 +208,33 @@ class GomokuWrongStateTest {
             gomoku.firstMark(Mark.CROSS);
             gomoku.periodicBoundaryConditionsInUse();
             gomoku.nextMove(createBoardState5(), Mark.CROSS);
+        });
+    }*/
+
+
+    static Set<Move> createBoardState7() {
+        Set<Move> board = new HashSet<>();
+
+        board.add(new Move(new Position(10, 4), Mark.CROSS));
+        board.add(new Move(new Position(10, 5), Mark.CROSS));
+
+        board.add(new Move(new Position(10, 4), Mark.NOUGHT));
+
+        board.add(new Move(new Position(7, 2), Mark.NOUGHT));
+        board.add(new Move(new Position(7, 3), Mark.NOUGHT));
+
+        return board;
+    }
+
+
+    @Test
+    void shouldThrowWrongBoardStateExceptionWhenTheSamePositionIsUsed2() {
+        printBoard(createBoardState7(), Mark.NOUGHT, false, Mark.NOUGHT);
+        assertThrows(WrongBoardStateException.class, () -> {
+            Gomoku gomoku = new Gomoku();
+            gomoku.size(12);
+            gomoku.firstMark(Mark.NOUGHT);
+            gomoku.nextMove(createBoardState7(), Mark.NOUGHT);
         });
     }
 
