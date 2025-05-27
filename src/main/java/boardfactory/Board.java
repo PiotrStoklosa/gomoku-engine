@@ -36,7 +36,7 @@ public abstract class Board {
         for (Move move : boardState) {
             int col = move.position().col();
             int row = move.position().row();
-            if (col >= 0 && col < size && row >= 0 && row < size) {
+            if (col >= 0 && col < size && row >= 0 && row < size && cells[col][row] == Mark.NULL) {
                 cells[col][row] = move.mark();
             } else {
                 throw new WrongBoardStateException();
